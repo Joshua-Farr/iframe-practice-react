@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useRef } from "react";
 
 const IframeWrapper = styled.div`
   display: flex;
@@ -13,18 +14,32 @@ const StyledIframe = styled.iframe`
   width: 700px;
 `;
 
-const handleClick = () => {
-  console.log("Parent Says X");
-  const message = "X";
-};
-
 const App = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener("message", (e) => {
+      e.preventDefault();
+      sayMessage(e.data);
+    });
+  });
+
+  const sayMessage = (message) => {
+    console.log("Parent says ", message);
+  };
+
+  const handleClick = () => {
+    console.log("Parent Says X");
+    const message = "X";
+    iframeRef.current.contentWindow.postMessage(message, "*");
+  };
+
   return (
     <IframeWrapper>
       <h1>Hello, I am the Parent!</h1>
       <button onClick={handleClick}>Click Me</button>
       <StyledIframe
-        // src="https://www.youtube.com/embed/BSmYxnvUDHw?si=GErWw-aFAjhtEm4A"
+        ref={iframeRef}
         src="http://localhost:3006"
         frameborder="1"
         style={{ height: "100%" }}
