@@ -27,7 +27,9 @@ function App() {
   });
 
   const sayMessage = (message) => {
-    console.log("Child says ", message);
+    if (message.type !== "webpackOk") {
+      console.log("Child says ", message);
+    }
   };
 
   const sendMessageToParent = () => {
