@@ -27,6 +27,12 @@ const App = () => {
   }); //Do I need to unmount in order to prevent memory leaks?
 
   const sayMessage = (message) => {
+    if (
+      (typeof message === "object" && message.type === "webpackOk") ||
+      message.type === "webpackHotUpdate"
+    ) {
+      return;
+    }
     console.log("Parent says ", message);
   };
 
@@ -43,9 +49,8 @@ const App = () => {
       <StyledIframe
         ref={iframeRef}
         src="http://localhost:3006"
-        frameBorder="1"
         style={{ height: "100%" }}
-        scrolling="no" // TO-DO: Look for an alternate way to handle this
+        scrolling="no" // TODO: Look for an alternate way to handle this
       ></StyledIframe>
     </IframeWrapper>
   );

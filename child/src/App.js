@@ -12,12 +12,11 @@ const StyledWrapper = styled.div`
 `;
 
 function App() {
-  //TODO - Workn on preventing initial behavior on mounting
   const isMounted = useRef(false);
 
   useEffect(() => {
     window.addEventListener("message", (e) => {
-      e.preventDefault();
+      e.stopPropagation();
       //Preventing initial call on mount
       if (isMounted.current === true) {
         sayMessage(e.data);
@@ -27,9 +26,14 @@ function App() {
   });
 
   const sayMessage = (message) => {
-    if (message.type !== "webpackOk") {
-      console.log("Child says ", message);
+    //Filtering out all webpack messages
+    if (
+      (typeof message === "object" && message.type === "webpackOk") ||
+      message.type === "webpackHotUpdate"
+    ) {
+      return;
     }
+    console.log("Child says ", message);
   };
 
   const sendMessageToParent = () => {
