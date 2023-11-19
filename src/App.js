@@ -14,18 +14,21 @@ const StyledIframe = styled.iframe`
 `;
 
 const handleClick = () => {
-  console.log("hello!");
+  console.log("Parent Says X");
+  const message = "X";
 };
 
 const App = () => {
   return (
     <IframeWrapper>
-      <h1>I am the parent!</h1>
+      <h1>Hello, I am the Parent!</h1>
       <button onClick={handleClick}>Click Me</button>
       <StyledIframe
         // src="https://www.youtube.com/embed/BSmYxnvUDHw?si=GErWw-aFAjhtEm4A"
         src="http://localhost:3006"
         frameborder="1"
+        style={{ height: "100%" }}
+        scrolling="no" // TO-DO: Look for an alternate way to handle this
       ></StyledIframe>
     </IframeWrapper>
   );

@@ -12,7 +12,8 @@ const StyledWrapper = styled.div`
 
 function App() {
   const handleClick = () => {
-    console.log("Child Clicked!");
+    console.log("Child says Y");
+    const message = "Y";
   };
 
   return (
