@@ -24,7 +24,7 @@ const App = () => {
         sayMessage(e.data);
       }
     });
-  }); //Do I need to unmount in order to prevent memory leaks?
+  });
 
   const sayMessage = (message) => {
     if (
@@ -50,7 +50,7 @@ const App = () => {
         src="http://localhost:3006"
         sandbox="allow-scripts allow-same-origin"
         style={{ height: "100%" }}
-        scrolling="no" // TODO: Look for an alternate way to handle this
+        scrolling="no"
       ></StyledIframe>
     </IframeWrapper>
   );
