@@ -38,8 +38,7 @@ const App = () => {
 
   const handleClick = () => {
     console.log("Parent Says X");
-    const message = "X";
-    iframeRef.current.contentWindow.postMessage(message, "*");
+    iframeRef.current.contentWindow.postMessage("X", "*");
   };
 
   return (
@@ -49,6 +48,7 @@ const App = () => {
       <StyledIframe
         ref={iframeRef}
         src="http://localhost:3006"
+        sandbox="allow-scripts allow-same-origin"
         style={{ height: "100%" }}
         scrolling="no" // TODO: Look for an alternate way to handle this
       ></StyledIframe>

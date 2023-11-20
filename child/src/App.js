@@ -14,27 +14,17 @@ const StyledWrapper = styled.div`
 function App() {
   const isMounted = useRef(false);
 
-  useEffect(() => {
-    window.addEventListener("message", (e) => {
-      e.stopPropagation();
-      //Preventing initial call on mount
-      if (isMounted.current === true) {
-        sayMessage(e.data);
-      }
-    });
-    isMounted.current = true;
-  });
-
   const sayMessage = (message) => {
     //Filtering out all webpack messages
-    if (
-      (typeof message === "object" && message.type === "webpackOk") ||
-      message.type === "webpackHotUpdate"
-    ) {
-      return;
-    }
     console.log("Child says ", message);
   };
+
+  useEffect(() => {
+    window.addEventListener("message", (e) => {
+      e.preventDefault();
+      sayMessage(e.data);
+    });
+  });
 
   const sendMessageToParent = () => {
     console.log("Child says Y");
